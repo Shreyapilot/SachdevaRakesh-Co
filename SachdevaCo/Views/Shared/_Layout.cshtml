@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title> SachdevaCo | @ViewData["Title"] </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="SachdevaCo" name="author" />
+    
+    <link href="~/Theme/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="~/Theme/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Theme/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+          type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/Theme/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+          type="text/css" />
+
+    <!-- Icons Css -->
+    <link href="~/Theme/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Theme/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- App Css-->
+    <link href="~/Theme/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Theme/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- Example -->
+
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <style>
+        .displaynone{
+           display:none !important;
+        }
+    </style>
+</head>
+
+<body data-sidebar="dark">
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @Html.Partial("_Header.cshtml")
+        <div class="page-content">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    @Html.Partial("_Footer.cshtml")
+
+    <script src="~/Theme/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Theme/assets/libs/metismenu/metisMenu.min.js"></script>
+
+    <script src="~/Theme/assets/libs/node-waves/waves.min.js"></script>
+
+
+    <!-- Required datatable js -->
+    <script src="~/Theme/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Theme/assets/js/pages/datatables.init.js"></script>
+
+    <script src="~/Theme/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/Theme/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Theme/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Buttons examples -->
+    <script src="~/Theme/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Theme/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+
+    @* <script src="~/Theme/assets/libs/jquery/jquery.slim.min.js"></script> *@
+
+    <!-- App js -->
+    <script src="~/Theme/assets/js/app.js"></script>
+    <script src="~/Theme/assets/libs/select2/js/select2.min.js"></script>
+    <script src="~/lib/jquery/jquery.bootstrap-growl.js"></script>
+    <script src="~/js/commonfunction.js"></script>
+    <!-- Example -->
+
+    <script>
+
+        $(document).ready(function () {
+       
+            $("#UsdRate").on("blur", function () {
+                if (parseFloat(this.value) == 0) {
+                    this.value =  "";
+                }
+            })
+
+
+            if ('@ViewBag.Message' != '') {
+                showAlertMessage('@ViewBag.Message', "body", "info");
+            }
+            $('.select2').select2();
+
+            $('.select2').on('select2:opening select2:closing', function (event) {
+                var $searchfield = $(this).parent().find('.select2-search__field');
+                $searchfield.prop('disabled', true);
+            });
+        });
+        function renderDataTable(){
+            $('.table').dataTable({
+                "sScrollX": '100%',
+                responsive: false,
+                "bDestroy": true,
+                lengthMenu: [[2, 5, 10, 25, 100, -1], [2, 5, 10, 25, 100, "All"]],
+                pageLength: 5,
+
+            });
+        }
+
+        jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+            "date-uk-pre": function (a) {
+                var ukDatea = a.split('/');
+                return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+            },
+
+            "date-uk-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+
+            "date-uk-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+        });
+
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

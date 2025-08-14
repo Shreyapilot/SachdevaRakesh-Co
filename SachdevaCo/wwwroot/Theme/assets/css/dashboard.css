@@ -1,0 +1,192 @@
+.table_bg tr th {
+    background-color: #e7ebf4;
+}
+
+.dash_table tr td {
+    border: none;
+    padding: 10px 0px;
+}
+
+.table-responsive.dash_table tr th {
+    padding: 10px 0px;
+    border-bottom: 0;
+}
+
+.rounded-10 {
+    border-radius: 10px;
+    border: 1px solid #e6e6e6;
+}
+
+.dash_table tr td:nth-child(2) {
+    text-align: right;
+}
+
+.dash_table tr th:nth-child(2) {
+    text-align: right;
+    padding-right: 67px;
+}
+
+.dash_card ul {
+    padding-left: 0;
+}
+
+.dash_card ul li {
+    list-style: none;
+    width: 33%;
+    padding: 15px 15px;
+    background: #292e41;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.dash_card ul li:nth-child(2) {
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.dash_card ul li:nth-child(3) {
+    margin-right: 10px;
+}
+
+.dash_card ul li h3 span {
+    color: #219aeb;
+}
+
+.dash_card ul li h3 {
+    font-size: 28px;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+#pie_chart1 .apexcharts-legend.apexcharts-align-center.position-bottom {
+    display: none !important;
+}
+
+.h-264 {
+    height: 264px;
+}
+
+@media(max-width:768px) {
+    .dash_card ul {
+        flex-wrap: wrap;
+    }
+
+    .dash_card ul li {
+        margin-bottom: 10px;
+        width: 45%;
+    }
+
+    .h-264 {
+        height: auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* msp dashboard css */
+/* .apexcharts-legend.position-bottom, .apexcharts-legend.position-top{
+    display: none;
+} */
+.msp_table tr th {
+    font-size: 10px;
+    vertical-align: middle;
+}
+
+.msp_table tr th:nth-child(1) {
+    width: 80px;
+}
+
+.msp_table tr th:nth-child(2) {
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.msp_table tr th:nth-child(3) {
+    text-align: center;
+}
+
+.msp_table tr th:nth-child(4) {
+    text-align: center;
+}
+
+.msp_table tr td {
+    font-size: 10px;
+}
+
+.msp_table tr td:nth-child(2) {
+    text-align: center;
+}
+
+.msp_table tr td:nth-child(3) {
+    text-align: center;
+}
+
+.msp_table tr td:nth-child(4) {
+    text-align: center;
+}
+
+#pie_chart2 .apexcharts-legend {
+    inset: auto 0px 1px 0px !important;
+}
+
+.customer_table tr th:nth-child(1) {
+    width: 70px;
+}
+
+
+    
+
+
+
+/* admin dashboard css  */
+
+.admin_table tr td{
+    vertical-align: middle;
+}
+
+.admin_table tr td:nth-child(2) {
+    background-color: #e7ebf4;
+    padding: 13px 10px;
+}
+
+.admin_plan tr td:nth-child(2) {
+    text-align: center;
+}
+
+.admin_plan tr td:nth-child(3) {
+    text-align: center;
+}
+.admin_plan tr td:nth-child(4) {
+    text-align: center;
+}
+.admin_plan tr th:nth-child(2) {
+    text-align: center;
+}
+
+.admin_plan tr th:nth-child(3) {
+    text-align: center;
+}
+.admin_plan tr th:nth-child(4) {
+    text-align: center;
+}
+#pie_chart3 .apexcharts-legend-text{
+    font-size: 13px !important;
+}

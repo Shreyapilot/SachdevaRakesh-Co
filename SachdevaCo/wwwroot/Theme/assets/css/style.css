@@ -1,0 +1,107 @@
+/* header css  */
+#sidebar-menu ul li ul.sub-menu li a {
+    padding: 0.4rem 1.5rem 0.4rem 2rem;
+}
+
+span.select2{
+    width: 100% !important;
+}
+
+/* card main css  */
+.card {
+    margin-bottom: 24px;
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    border-radius: 10px;
+    border: 0.5px solid #e4e4e4;
+}
+
+.page-title-box {
+    padding-bottom: 20px;
+}
+
+.page-title-box h4 {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px !important;
+    margin-bottom: 0;
+
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    border-radius: 30px;
+}
+
+table th {
+    background-color: #eff2f7 !important;
+}
+
+.ms-auto img {
+    width: 50px;
+}
+
+.card-title {
+    margin-bottom: 20px;
+}
+
+.h-392 {
+    height: 392px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a img {
+    width: 25px;
+    margin-right: 5px;
+}
+
+.drop_head {
+    padding: 12px 20px !important;
+    letter-spacing: .05em;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    color: #6a7187 !important;
+}
+
+#sidebar-menu ul li ul.sub-menu li a {
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem !important;
+}
+
+.check_box_flex {
+    display: flex;
+    align-items: center;
+  
+}
+
+
+body[data-sidebar=dark] #sidebar-menu ul li a .desk_none {
+    display: none;
+}
+
+.vertical-collpsed .vertical-menu #sidebar-menu>ul>li>a .desk_none {
+    display: inline-block;
+  
+}
+.vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a span{
+    font-size: 13px;
+    color: #fff;
+    text-transform: capitalize;
+}
+.check_box {
+    width: 15%;
+}
+
+
+
+@media(max-width:768px){
+    .check_box_flex{
+       flex-wrap: wrap;
+       margin-bottom: 0 !important;
+    }
+    .check_box{
+        width: 50%;
+        margin-bottom: 10px;
+    }
+}
+
+.astrik {
+color:red !important;
+}
