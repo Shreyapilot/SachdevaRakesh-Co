@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SachdevaCo.Core.Model.ViewModels.HomeViewModel
+@{
     ViewBag.Title = "Home";
 }
 
@@ -34,15 +35,9 @@
         height: 80px;
     }
 
-    /* .clip-divider {
-        height: 100px;
-        background-color: #ffffff;
-        clip-path: polygon(0 100%, 20% 80%, 40% 100%, 60% 80%, 80% 100%, 100% 80%, 100% 0, 0 0);
-    } */
-
     .wave-divider-bottom {
         transform: rotate(180deg);
-        margin-top: -1px; /* Optional: prevents visible gap */
+        margin-top: -1px; 
     }
 
     .wave-divider-bottom svg {
@@ -154,21 +149,10 @@
     <div class="container">
         <h2 class="text-white mb-5" style="font-family: 'Georgia', serif; font-size: 2.5rem;">OUR SERVICES</h2>
         <div class="services-grid">
-            <div class="service-box">
-                <span>AUDIT &<br>ATTESTATION</span>
-            </div>
-            <div class="service-box">
-                <span>ADVISORY &<br>CONSULTING</span>
-            </div>
-            <div class="service-box">
-                <span>TAX</span>
-            </div>
-            <div class="service-box">
-                <span>WEALTH<br>MANAGEMENT</span>
-            </div>
-            <div class="service-box">
-                <span>TAX</span>
-            </div>
+           @foreach(var service in Model.Services)  
+            {
+                <div class="service-box">@service.Title</div>
+            }
         </div>
     </div>
 </section>
@@ -181,25 +165,17 @@
         <div class="team-text text-center text-lg-start">
             <h2 class="text-white mb-4" style="font-family: 'Georgia', serif; font-size: 2.5rem;">OUR TEAM</h2>
             <p class="fs-5 mb-4">
-                We have a team with specialized knowledge to help clients<br>
-                improve performance, solve problems, and achieve objectives.
+                @Model.About.Description
             </p>
-            <a href="#" class="btn btn-danger px-4 py-2">Read More</a>
+            <a href="@Url.Action("Index", "About") class="btn btn-danger px-4 py-2">Read More</a>
         </div>
 
      
-        <img src="/images/team1.avif" alt="Team Normal"
-                class="img-default w-50 h-50" />
+        <img src="@Model.About.ImageUrl" alt="@Model.About.Title"
+                class="img-default" width="400" height="350" />
      
     </div>
 </section>
-
-
-
-
-
-
-<!-- CONTACT US Section -->
 <section class="contact-us-section py-5" style="background-color: #0C1533; color: white;">
     <!-- Top Divider -->
     <div class="wave-divider-top">
@@ -207,34 +183,30 @@
             <path fill="#FFFFFF" d="M0,0 C300,100 1140,0 1440,100 L1440,0 L0,0 Z"></path>
         </svg>
     </div>
-    @* <div class="clip-divider"></div> *@
-
-
     <div class="container text-center">
         <h2 class="mb-5 text-white" style="font-family: 'Georgia', serif; font-size: 2.5rem;">Few ways to contact us</h2>
         <div class="row">
             <div class="col-md-3">
-                <img src="~/images/callus.avif " class="img-fluid mb-3" alt="Get in Touch">
+                <img src="~/images/callus.jpg" class="img-fluid" alt="Get in Touch" />
                 <h5 class="text-white">Get in Touch</h5>
                 <p class="fw-bold">Call us on<br>......</p>
             </div>
             <div class="col-md-3">
-                <img src="~/images/visitOffice.avif" class="img-fluid mb-3" alt="Visit Office">
+                <img src="~/images/visitOffice.jpg" class="img-fluid mb-3" alt="Visit Office">
                 <h5 class="text-white">Visit our Office</h5>
             </div>
             <div class="col-md-3">
-                <img src="~/images/meetOnline.avif" class="img-fluid mb-3" alt="Meet Online">
+                <img src="~/images/meetOnline.jpg" class="img-fluid mb-3" alt="Meet Online">
                 <h5 class="text-white">Meet online</h5>
                 <p class="fw-bold">Book an online meeting</p>
             </div>
             <div class="col-md-3">
-                <img src="~/images/switchacccountant.avif" class="img-fluid mb-3" alt="Switch Accountant">
+                <img src="~/images/switchacccountant.jpg" class="img-fluid mb-3" alt="Switch Accountant">
                 <h5 class="text-white">Switch Accountant</h5>
                 <p class="fw-bold">Call us on<br>......</p>
             </div>
         </div>
     </div>
-    <!-- Bottom Wave Divider -->
     <div class="wave-divider-bottom">
         <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
             <path fill="#FFFFFF" d="M0,0 C300,100 1140,0 1440,100 L1440,0 L0,0 Z"></path>
@@ -244,18 +216,38 @@
 
 </section>
 
-<section style="background-color: #0C1533; color: white; height: 500px;" id="articles">
-    <div class="container py-4">
-        <!-- Heading -->
-        <h2 class="text-white mb-5" style="font-family: 'Georgia', serif; font-size: 2.5rem;">Latest Articles</h2>
-
-        <!-- White box with centered text -->
-        <div class="bg-white d-flex align-items-center justify-content-center" style="height: 500px;">
-            <div class="text-center">
-                <h5 class="text-black fw-bold">Check back soon</h5>
-                <p class="text-black">Once posts are published, you’ll see them here.</p>
+<section style="background-color: #0C1533; color: white; min-height: 500px;" id="articles">
+    <h2 class="text-white mb-5 text-center" style="font-family: 'Georgia', serif; font-size: 2.5rem;">
+        Latest Articles
+    </h2>
+    <div class="container py-5 px-5 rounded-2" style="background-color: ghostwhite;">
+        @if (Model != null && Model.Article.Any())
+        {
+            <div class="row gap-4">
+                @foreach (var article in Model.Article)
+                {
+                    <div class="col-4 bg-white rounded-2 ">
+                        <div class="d-flex align-items-center gap-3 p-4 ">
+                           
+                            <h5 class="mb-0 fw-bold text-dark">@article.Title</h5>
+                            <a href="@article.FilePath" download class="btn btn-primary px-4 py-2 rounded-3 fw-semibold">
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
-        </div>
+        }
+        else
+        {
+            <!-- Empty placeholder -->
+            <div class="bg-white d-flex align-items-center justify-content-center rounded-4 shadow-sm" style="height: 300px;">
+                <div class="text-center">
+                    <h5 class="text-black fw-bold">Check back soon</h5>
+                    <p class="text-black">Once posts are published, you’ll see them here.</p>
+                </div>
+            </div>
+        }
     </div>
 </section>
 
@@ -296,202 +288,6 @@
                 </form>
             </div>
 
-        </div>
-    </div>
-</section>
-<section class="pt-5 pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <h3 class="mb-3">Happy Clients & Feedbacks</h3>
-            </div>
-            <div class="col-6 text-right">
-                <a class="btn btn-primary mb-3 mr-1"
-                   href="#carouselExampleIndicators2"
-                   role="button"
-                   data-slide="prev">
-                    <i class="fa fa-arrow-left"></i>
-                </a>
-                <a class="btn btn-primary mb-3"
-                   href="#carouselExampleIndicators2"
-                   role="button"
-                   data-slide="next">
-                    <i class="fa fa-arrow-right"></i>
-                </a>
-            </div>
-            <div class="col-12">
-                <div id="carouselExampleIndicators2"
-                     class="carousel slide"
-                     data-ride="carousel">
-
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240122184958/images2.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Special title treatment
-                                            </h4>
-                                            <p class="card-text">
-                                                With supporting text
-                                                below as a natural lead-in
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240122184958/images2.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Special title
-                                                treatment
-                                            </h4>
-                                            <p class="card-text">
-                                                With supporting
-                                                text below as a natural
-                                                lead-in to additional
-                                                content.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20230407154213/gfg-bag.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240110011854/reading-925589_640.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240122182422/images1.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240110011854/reading-925589_640.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240110011815/sutterlin-1362879_640-(1).jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240110011929/glasses-1052010_640.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid"
-                                             alt="100%x280"
-                                             src="https://media.geeksforgeeks.org/wp-content/uploads/20240110011929/glasses-1052010_640.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">
-                                                With supporting text below
-                                                as a natural lead-in to
-                                                additional content.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

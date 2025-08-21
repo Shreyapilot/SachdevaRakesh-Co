@@ -14,4 +14,6 @@ public partial class AboutPage
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public string? ImageUrl { get; set; }
 }

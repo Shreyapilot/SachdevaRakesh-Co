@@ -14,7 +14,10 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\images\about\" />
+    <Folder Include="wwwroot\images\team\" />
     <Folder Include="wwwroot\NewFolder\" />
+    <Folder Include="wwwroot\uploads\News\" />
   </ItemGroup>
 
   <PropertyGroup>

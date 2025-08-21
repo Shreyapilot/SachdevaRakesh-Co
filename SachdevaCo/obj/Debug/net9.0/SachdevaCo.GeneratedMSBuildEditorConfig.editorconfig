@@ -32,16 +32,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/RakeshSachdeva/SachdevaCo/Views/Admin/About/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWJvdXRcSW5kZXguY3NodG1s
+[D:/RakeshSachdeva/SachdevaCo/Views/AdminAbout/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BYm91dFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/RakeshSachdeva/SachdevaCo/Views/Admin/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSG9tZVxJbmRleC5jc2h0bWw=
+[D:/RakeshSachdeva/SachdevaCo/Views/AdminArticle/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BcnRpY2xlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/RakeshSachdeva/SachdevaCo/Views/Admin/Services/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VydmljZXNcSW5kZXguY3NodG1s
+[D:/RakeshSachdeva/SachdevaCo/Views/AdminNews/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5OZXdzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RakeshSachdeva/SachdevaCo/Views/AdminServices/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZXJ2aWNlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/RakeshSachdeva/SachdevaCo/Views/Contact/Index.cshtml]
@@ -74,6 +78,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/RakeshSachdeva/SachdevaCo/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RakeshSachdeva/SachdevaCo/Views/Shared/_AdminHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RakeshSachdeva/SachdevaCo/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/RakeshSachdeva/SachdevaCo/Views/Shared/_Footer.cshtml]

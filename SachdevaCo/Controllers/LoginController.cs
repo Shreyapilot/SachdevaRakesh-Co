@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SachdevaCo.Core.Models;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using SachdevaCo.Core.Model.IRepository;
 using SachdevaCo.Core.Model.ViewModels;
+using SachdevaCo.Core.Models;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -32,31 +35,6 @@ namespace SachdevaCo.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public IActionResult Login([Bind(Prefix = "Login")] LoginViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.ShowRegister = false;
-        //        return View("Index", new LoginRegisterViewModel { Login = model, Register = new RegisterViewModel() });
-        //    }
-
-        //    var authenticatedUser = _loginRepository.AuthenticateUser(model.Email, model.Password);
-        //    if (authenticatedUser == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Invalid email or password.");
-        //        ViewBag.ShowRegister = false;
-        //        return View("Index", new LoginRegisterViewModel
-        //        {
-        //            Login = model,
-        //            Register = new RegisterViewModel()
-        //        });
-        //    }
-
-
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-
         public IActionResult Login([Bind(Prefix = "Login")] LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -71,10 +49,14 @@ namespace SachdevaCo.Web.Controllers
                 ModelState.AddModelError("", "Invalid credentials.");
                 return View(model);
             }
-
-            // Set user in session or cookie
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.SetString("UserRole", user.Role);
+            HttpContext.Session.SetString("UserName", user.UserName);
+            if (user.Role == "Admin")
+                return RedirectToAction("Index", "AdminArticle");
+            else
+                return RedirectToAction("Index", "Home");
         }
+
 
         [HttpGet]
         public IActionResult Register()
@@ -110,13 +92,6 @@ namespace SachdevaCo.Web.Controllers
                     return View("Index", model);
                 }
 
-                //var existingUser = _context.Users.FirstOrDefault(u => u.Email == model.Email || u.Username == model.UserName);
-                //if (existingUser != null)
-                //{
-                //    ViewData["ValidateMessage"] = "User already exists.";
-                //    return View("Index", model);
-                //}
-
                 CreatePasswordHash(model.Password, out byte[] hash, out byte[] salt);
 
                 var user = new User
@@ -135,10 +110,6 @@ namespace SachdevaCo.Web.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
-
-
         private bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
         {
             using (var hmac = new HMACSHA512(storedSalt))

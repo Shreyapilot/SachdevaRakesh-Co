@@ -19,21 +19,7 @@ namespace SachdevaCo.Controllers
             return View(services);
         }
 
-        [HttpPost]
-        public IActionResult Create(ServiceViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return RedirectToAction("Index");
-
-            _serviceRepo.AddOrUpdateService(model);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            _serviceRepo.DeleteService(id);
-            return RedirectToAction("Index");
-        }
+       
+       
     }
 }

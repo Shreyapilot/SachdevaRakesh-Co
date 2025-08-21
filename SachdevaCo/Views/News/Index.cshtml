@@ -1,21 +1,84 @@
+﻿@model IEnumerable<SachdevaCo.Core.Model.ViewModels.NewsViewModel>
 @{
-    ViewData["Title"] = "News & Updates";
+    ViewBag.Title = "News & Updates";
 }
 
-<div style="position: relative;">
-    <div style="background: url('/images/news-background.avif') center center / cover no-repeat; height: 400px; display: flex; align-items: center; justify-content: center;">
-        <h1 style="color: white; font-size: 3rem;">NEWS & UPDATES</h1>
+<div class="container py-5" >
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-dark">News & Updates</h1>
+        <p class="text-muted">Stay informed with the latest news across different categories.</p>
     </div>
 
-    <div style="padding: 2rem;">
-        <nav style="margin-bottom: 1rem;">
-            <a href="#" style="margin-right: 1rem; color: blue;">All Posts</a>
-            <a href="#">TAX</a>
-        </nav>
+    <div class="d-flex justify-content-center mb-4 flex-wrap gap-2">
+        <a href="@Url.Action("Index", "News", new { category = "" })"
+           class="btn btn-sm @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "btn-primary" : "btn-outline-primary")">
+            <i class="fas fa-globe me-1"></i> All
+        </a>
+        <a href="@Url.Action("Index", "News", new { category = "TAX" })"
+           class="btn btn-sm @(ViewBag.SelectedCategory == "TAX" ? "btn-primary" : "btn-outline-primary")">
+            <i class="fas fa-file-invoice-dollar me-1"></i> TAX
+        </a>
+        <a href="@Url.Action("Index", "News", new { category = "Company Law" })"
+           class="btn btn-sm @(ViewBag.SelectedCategory == "Company Law" ? "btn-primary" : "btn-outline-primary")">
+            <i class="fas fa-balance-scale me-1"></i> Company Law
+        </a>
+        <a href="@Url.Action("Index", "News", new { category = "GST" })"
+           class="btn btn-sm @(ViewBag.SelectedCategory == "GST" ? "btn-primary" : "btn-outline-primary")">
+            <i class="fas fa-receipt me-1"></i> GST
+        </a>
+    </div>
 
-        <div style="text-align: center; margin-top: 100px;">
-            <h2>Check back soon</h2>
-            <p>Once posts are published, you�ll see them here.</p>
+    <!-- News Grid -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="row g-4">
+            @foreach (var news in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 border-0 news-card">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-light text-dark">@news.Category</span>
+                                <small class="text-muted">@news.CreatedDate?.ToString("dd MMM yyyy")</small>
+                            </div>
+                            <h5 class="card-title text-dark">@news.Title</h5>
+
+                            <div class="mt-auto pt-3">
+                                @if (!string.IsNullOrEmpty(news.FilePath))
+                                {
+                                    <a href="@Url.Content(news.FilePath)" target="_blank" class="btn btn-sm btn-success">
+                                        📂 View File
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">No file attached</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <h4 class="text-danger">No news related to this category</h4>
+            <p class="text-muted">Try selecting another category.</p>
+        </div>
+    }
 </div>
+
+<!-- Extra CSS for hover effect -->
+<style>
+    .news-card {
+        transition: all 0.3s ease;
+    }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+</style>

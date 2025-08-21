@@ -1,0 +1,221 @@
+﻿@model SachdevaCo.Core.Model.ViewModels.AboutPageViewModel
+@{
+    ViewBag.Title = "About Page";
+    Layout = "_AdminLayout";
+}
+
+<div class="container py-4">
+    <h1>About Page</h1>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>About</h4>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#aboutModal">
+                Edit About
+            </button>
+        </div>
+        <div class="card-body">
+            <h5>@Model.About.Title</h5>
+            <p>@Model.About.Description</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Team Members</h4>
+            <button class="btn btn-primary" onclick="openTeamModal()">Add Team Member</button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var member in Model.TeamMembers)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="@member.ImageUrl" class="card-img-top" alt="@member.Name">
+                            <div class="card-body">
+                                <h5>@member.Name</h5>
+                                <p>@member.Position</p>
+                                <div class="d-flex justify-content-between">
+                                    <p>@member.Email</p>
+                                    <p>@member.Phone</p>
+                                </div>
+                                <p>@member.Description</p>
+                                <button class="btn btn-sm btn-warning"
+                                        onclick='openTeamModal(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(member)))'>
+                                    Edit
+                                </button>
+
+                                <form method="post" asp-action="DeleteTeamMember" style="display:inline;"
+                                      onsubmit="return confirm('Are you sure you want to delete this team member?');">
+                                    <input type="hidden" name="id" value="@member.Id" />
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="aboutModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-action="SaveAbout" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit About</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="Id" value="@Model.About.Id" />
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <input type="text" name="Title" value="@Model.About.Title" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea name="Description" class="form-control">@Model.About.Description</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Upload Image (JPG, JPEG, PNG)</label>                      
+                        <input type="file" name="ImageFile" id="aboutImageFile" class="form-control"
+                               accept=".jpg, .jpeg, .png" onchange="previewAboutImage(event)" />
+
+                        <small class="text-muted">Allowed formats: JPG, JPEG, PNG</small>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <img id="aboutImagePreview" src="" alt="Image Preview"
+                             class="img-thumbnail" style="display:none; max-width:150px; border-radius:50%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="teamModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-action="SaveTeamMember" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Team Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="Id" id="teamId" />
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" name="Name" id="teamName" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Position</label>
+                        <input type="text" name="Position" id="teamPosition" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="Email" id="teamEmail" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Phone</label>
+                        <input type="text" name="Phone" id="teamPhone" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea name="Description" id="teamDescription" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Upload Image (JPG, JPEG, PNG)</label>
+                        <input type="file" name="ImageFile" id="teamImageFile" class="form-control "
+                               accept=".jpg, .jpeg, .png" onchange="previewTeamImage(event)" />
+                        <small class="text-muted">Allowed formats: JPG, JPEG, PNG</small>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <img id="teamImagePreview" src="" alt="Image Preview"
+                             class="img-thumbnail" style="display:none; max-width:150px; border-radius:50%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+      
+           function openTeamModal(member) {
+            document.getElementById('teamId').value = "";
+            document.getElementById('teamName').value = "";
+            document.getElementById('teamPosition').value = "";
+            document.getElementById('teamEmail').value = "";
+            document.getElementById('teamPhone').value = "";
+            document.getElementById('teamDescription').value = "";
+            document.getElementById('teamImageFile').value = ""; 
+            document.getElementById('teamImagePreview').style.display = "none";
+            document.getElementById('teamImagePreview').src = "";
+
+            if (member) {
+                document.getElementById('teamId').value = member.Id;
+                document.getElementById('teamName').value = member.Name;
+                document.getElementById('teamPosition').value = member.Position;
+                document.getElementById('teamEmail').value = member.Email;
+                document.getElementById('teamPhone').value = member.Phone;
+                document.getElementById('teamDescription').value = member.Description;
+
+                if (member.ImageUrl) {
+                    document.getElementById('teamImagePreview').src = member.ImageUrl;
+                    document.getElementById('teamImagePreview').style.display = "block";
+                }
+            }
+
+            new bootstrap.Modal(document.getElementById('teamModal')).show();
+        }
+
+  
+        function previewTeamImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+                if (!validTypes.includes(file.type)) {
+                    alert("Please upload a valid image (JPG, JPEG, PNG).");
+                    event.target.value = "";
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById("teamImagePreview");
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+         function previewAboutImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+                if (!validTypes.includes(file.type)) {
+                    alert("Please upload a valid image (JPG, JPEG, PNG).");
+                    event.target.value = "";
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById("aboutImagePreview");
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+          }
+    </script>
+}

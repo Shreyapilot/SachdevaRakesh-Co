@@ -9,6 +9,7 @@ using SachdevaCo.Core.Model.IRepository;
 using SachdevaCo.Core.Model.Repository;
 using SachdevaCo.Core.Model.ViewModels;
 using SachdevaCo.Core.Models;
+using static SachdevaCo.Core.Model.Repository.AboutRepository;
 var builder = WebApplication.CreateBuilder(args);
 
 {
@@ -19,9 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddScoped<ILoginRepository, LoginRepository>();
     builder.Services.AddScoped<IContactRepository, ContactRepository>();
-    builder.Services.AddScoped<IAboutRepository, AboutRepository>();
     builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+    builder.Services.AddScoped<IAboutRepository, AboutRepository>();
     builder.Services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
+    builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+    builder.Services.AddScoped<INewsRepository, NewsRepository>();
+
 
 
     builder.Services.Configure<SmtpViewModels>(builder.Configuration.GetSection("SmtpSettings"));
@@ -37,6 +41,11 @@ var builder = WebApplication.CreateBuilder(args);
 
     });
 
+    builder.Services.AddSession();
+    builder.Services.AddHttpContextAccessor();
+
+
+    builder.Services.AddAuthorization();
 
     builder.Services.AddMvc();
 
@@ -58,16 +67,18 @@ var builder = WebApplication.CreateBuilder(args);
             app.UseExceptionHandler("/Error");
         }
     }
+    app.UseSession();
 
+    app.UseHttpsRedirection();
     app.UseStaticFiles();
-
+  
     app.UseRouting();
     app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Login}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 
     app.Run();
 }

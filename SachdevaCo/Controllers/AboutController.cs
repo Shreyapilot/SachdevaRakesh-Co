@@ -29,31 +29,6 @@ namespace SachdevaCo.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult SaveAbout(AboutViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return RedirectToAction("Index");
-
-            _aboutRepo.SaveAbout(model);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult SaveTeamMember(TeamMemberViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return RedirectToAction("Index");
-
-            _teamRepo.SaveTeamMember(model);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult DeleteTeamMember(int id)
-        {
-            _teamRepo.DeleteTeamMember(id);
-            return RedirectToAction("Index");
-        }
+       
     }
 }

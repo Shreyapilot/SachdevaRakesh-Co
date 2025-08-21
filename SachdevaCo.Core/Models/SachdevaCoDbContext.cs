@@ -17,6 +17,9 @@ public partial class SachdevaCoDbContext : DbContext
 
     public virtual DbSet<AboutPage> AboutPages { get; set; }
 
+    public virtual DbSet<News> News { get; set; } 
+    public virtual DbSet<Article> Articles { get; set; }
+
     public virtual DbSet<ContactMessage> ContactMessages { get; set; }
 
     public virtual DbSet<Service> Services { get; set; }
@@ -35,12 +38,37 @@ public partial class SachdevaCoDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__AboutPag__3214EC073F6FCB69");
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.Title)
                 .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
         });
 
+        modelBuilder.Entity<Article>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Articles__3214EC0715C3FD3D");
+
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.FilePath).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(250);
+        });
+
+        modelBuilder.Entity<News>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__News__3214EC07B1F8A0C2");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.FilePath).HasMaxLength(500);
+            entity.Property(e => e.Title).HasMaxLength(200);
+            entity.Property(e => e.Category).HasMaxLength(200);
+
+        });
         modelBuilder.Entity<ContactMessage>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__ContactM__3214EC07C13C91EF");

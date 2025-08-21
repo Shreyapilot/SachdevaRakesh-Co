@@ -6,13 +6,14 @@ namespace SachdevaCo.Core.Model.IRepository
     public interface IAboutRepository
     {
         AboutViewModel GetAboutPage();
-        void SaveAbout(AboutViewModel model);
+
+        Task SaveAbout(AboutViewModel model);
     }
 
     public interface ITeamMemberRepository
     {
         List<TeamMemberViewModel> GetTeamMembers();
-        void SaveTeamMember(TeamMemberViewModel model);
+        Task SaveTeamMember(TeamMemberViewModel model);
         void DeleteTeamMember(int id);
     }
 }

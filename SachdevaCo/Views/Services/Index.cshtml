@@ -1,120 +1,93 @@
 ﻿@model IEnumerable<SachdevaCo.Core.Model.ViewModels.ServiceViewModel>  
 
 @{
-    ViewBag.Title = "Manage Services";
+    ViewBag.Title = "Our Services";
 }
 
-<div class="container py-5">
-    <h1>Manage Services</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <button class="btn btn-primary mb-3" onclick="openServiceModal()">Add Service</button>
+<style>
+    .service-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    .service-card img {
+        height: 200px;
+        object-fit: cover;
+    }
+    .service-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .service-duration {
+        color: gray;
+        font-size: 0.9rem;
+    }
+    .service-price {
+        font-size: 1.1rem;
+        color: #28a745;
+        font-weight: 500;
+    }
+    .btn-book {
+        background-color: #007bff;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 20px;
+        font-size: 0.95rem;
+    }
+    .btn-book:hover {
+        background-color: #0056b3;
+    }
+</style>
 
-    <div class="row">
+ 
+<div class="bg-dark text-white d-flex align-items-lg-start justify-content-center text-center pb-3 "
+            style="background: url('/images/backgroundimage.webp') center center / cover no-repeat; height:200px;">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold text-white">Our Service</h1>
+    </div>
+</div>
+<div class="container my-4">
+    <div class="row g-4">
         @foreach (var service in Model)
         {
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-
-                    <img src="@service.ImageUrl" class="card-img-top" alt="@service.Title" />
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card service-card h-100">
+                    @* <img src="@service.ImageUrl" class="card-img-top" alt="@service.Title"> *@
                     <div class="card-body text-center">
-                        <h5 class="card-title">@service.Title</h5>
-                        <p class="card-text">@service.Description</p>
-                        <p>
-                            <strong>Duration:</strong> @service.Duration<br />
-                            <strong>Price:</strong> ₹@service.Price
-                        </p>
-
-                        <button class="btn btn-warning btn-sm me-2" type="button"
-                                onclick='openServiceModal(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(service)))'>
-                            Edit
-                        </button>
-
-                        <form method="post" asp-action="Delete" style="display:inline;"
-                              onsubmit="return confirm(" Delete this service?");">
-                            <input type="hidden" name="id" value="@service.Id" />
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
+                        <div class="service-title">@service.Title</div>
+                        <div class="service-duration">@service.Duration</div>
+                        <div class="service-price">₹@service.Price</div>
+                        <div class="service-description">@service.Description</div>
+                    </div>
+                    <div class="card-footer bg-white text-center">
+                        <a href="/" class="btn btn-book text-white">Book Now</a>
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
 
-<!-- Service Modal -->
-<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" asp-action="Create" id="serviceForm">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="serviceModalLabel">Add Service</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="Id" id="serviceId" />
-
-                    <div class="mb-3">
-                        <label for="serviceTitle" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="serviceTitle" name="Title" required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="serviceDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="serviceDescription" name="Description"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="serviceDuration" class="form-label">Duration</label>
-                        <input type="text" class="form-control" id="serviceDuration" name="Duration" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="servicePrice" class="form-label">Price (₹)</label>
-                        <input type="number" step="0.01" class="form-control" id="servicePrice" name="Price" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="serviceImageUrl" class="form-label">Image URL</label>
-                        <input type="text" class="form-control" id="serviceImageUrl" name="ImageUrl" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="serviceSubmitBtn">Add Service</button>
-                </div>
-            </form>
+    <div class="container my-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center ">
+            <div>
+                <h2 class="fw-bold mb-3">Need more details? Contact us</h2>
+                <p class="mb-4 mb-md-0 text-muted">
+                    We are here to assist. Contact us by phone, email or via our social media channels.
+                </p>
+            </div>
+            <a href="/Contact/index" class="btn btn-warning btn-lg">
+                Contact Us
+            </a>
         </div>
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        var serviceModal = new bootstrap.Modal(document.getElementById('serviceModal'));
 
-        function openServiceModal(service) {
-            if (service) {
-                // Edit
-                document.getElementById('serviceModalLabel').innerText = 'Edit Service';
-                document.getElementById('serviceSubmitBtn').innerText = 'Update Service';
-
-                document.getElementById('serviceId').value = service.Id;
-                document.getElementById('serviceTitle').value = service.Title;
-                document.getElementById('serviceDescription').value = service.Description;
-                document.getElementById('serviceDuration').value = service.Duration;
-                document.getElementById('servicePrice').value = service.Price;
-                document.getElementById('serviceImageUrl').value = service.ImageUrl;
-
-                document.getElementById('serviceForm').action = '@Url.Action("Create", "Services")';
-            } else {
-                // Add
-                document.getElementById('serviceModalLabel').innerText = 'Add Service';
-                document.getElementById('serviceSubmitBtn').innerText = 'Add Service';
-
-                document.getElementById('serviceId').value = '';
-                document.getElementById('serviceTitle').value = '';
-                document.getElementById('serviceDescription').value = '';
-                document.getElementById('serviceDuration').value = '';
-                document.getElementById('servicePrice').value = '';
-                document.getElementById('serviceImageUrl').value = '';
-
-                document.getElementById('serviceForm').action = '@Url.Action("Create", "Services")';
-            }
-            serviceModal.show();
-        }
-    </script>
-}

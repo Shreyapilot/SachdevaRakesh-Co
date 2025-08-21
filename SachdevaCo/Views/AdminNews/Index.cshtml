@@ -1,0 +1,78 @@
+﻿@model List<SachdevaCo.Core.Model.ViewModels.NewsViewModel>
+
+@{
+    ViewData["Title"] = "Manage News";
+    Layout = "_AdminLayout";
+
+}
+
+<div class="container py-4">
+
+<h2>Manage Articles</h2>
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" name="Title" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Category">Category</label>
+        <select id="ddlCategory" name="Category" class="form-control">
+            <option value="">All Posts</option>
+            <option value="TAX">TAX</option>
+            <option value="Company Law">Company Law</option>
+            <option value="GST">GST</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label for="File">Upload PDF</label>
+        <input type="file" name="File" class="form-control" accept=".pdf" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Add News</button>
+</form>
+
+<hr />
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>SNo.</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>File</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            int i = 1;
+            foreach (var news in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@news.Title</td>
+                    <td>@news.Category</td>
+                    <td>
+                        <a href="@news.FilePath" target="_blank">View PDF</a>
+                    </td>
+                    <td>
+                        <form asp-action="Delete" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@news.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No News found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

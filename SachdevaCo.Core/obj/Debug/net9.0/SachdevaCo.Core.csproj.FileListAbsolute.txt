@@ -23,3 +23,4 @@ D:\RakeshSachdeva\SachdevaCo.Core\obj\Debug\net9.0\ref\SachdevaCo.Core.dll
 D:\RakeshSachdeva\SachdevaCo.Core\obj\Debug\net9.0\SachdevaCo.Core.csproj.AssemblyReference.cache
 D:\RakeshSachdeva\SachdevaCo.Core\bin\Debug\net9.0\SachdevaCo.Core.runtimeconfig.json
 D:\RakeshSachdeva\SachdevaCo.Core\obj\Debug\net9.0\SachdevaCo.Core.genruntimeconfig.cache
+D:\RakeshSachdeva\SachdevaCo.Core\obj\Debug\net9.0\SachdevaCo.Core.sourcelink.json

@@ -8,9 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <!-- <link rel="shortcut icon" href="~/Theme/assets/images/favicon.ico"> -->
-    <!-- Bootstrap Css -->
     <link href="~/Theme/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
     <link href="~/Theme/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -25,30 +22,17 @@
         <div class="">
             @RenderBody()
         </div>
-        <!-- end container-fluid -->
     </div>
-
-    <!-- JAVASCRIPT -->
     <script src="~/Theme/assets/libs/jquery/jquery.min.js"></script>
     <script src="~/Theme/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/Theme/assets/libs/metismenu/metisMenu.min.js"></script>
-
     <script src="~/Theme/assets/libs/node-waves/waves.min.js"></script>
-
-    <!-- owl.carousel js -->
-
-    <!-- auth-2-carousel init -->
-
-    <!-- App js -->
     <script src="~/Theme/assets/js/app.js"></script>
     <script src="~/lib/jquery/jquery.bootstrap-growl.js"></script>
     <script src="~/js/commonfunction.js"></script>
 
     <script>
         $(document).ready(function () {
-            //$('.date-input').datepicker({
-            //    dateFormat: 'dd/MM/yyyy'
-            //});
             if ('@ViewBag.Message' != '') {
                 showAlertMessage('@ViewBag.Message', "body", "info");
             }
