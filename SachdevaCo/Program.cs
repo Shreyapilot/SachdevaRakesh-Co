@@ -25,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
     builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
     builder.Services.AddScoped<INewsRepository, NewsRepository>();
+    builder.Services.AddScoped<IServiceBookingRepository, ServiceBookingRepository>();
 
 
 

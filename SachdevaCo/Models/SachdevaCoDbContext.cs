@@ -21,6 +21,8 @@ public partial class SachdevaCoDbContext : DbContext
 
     public virtual DbSet<ContactMessage> ContactMessages { get; set; }
 
+    public virtual DbSet<News> News { get; set; }
+
     public virtual DbSet<Service> Services { get; set; }
 
     public virtual DbSet<TeamMember> TeamMembers { get; set; }
@@ -68,6 +70,19 @@ public partial class SachdevaCoDbContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.Subject).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<News>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__News__3214EC07838B6F89");
+
+            entity.Property(e => e.Category).HasMaxLength(50);
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Descriptions).HasMaxLength(1500);
+            entity.Property(e => e.FilePath).HasMaxLength(255);
+            entity.Property(e => e.Title).HasMaxLength(255);
         });
 
         modelBuilder.Entity<Service>(entity =>

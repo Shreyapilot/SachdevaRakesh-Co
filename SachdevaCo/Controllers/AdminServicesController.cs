@@ -5,15 +5,15 @@ using SachdevaCo.Core.Model.ViewModels;
 
 namespace SachdevaCo.Controllers
 {
-    
-
     public class AdminServicesController : Controller
     {
         private readonly IServiceRepository _serviceRepo;
+        private readonly IServiceBookingRepository _bookingRepo;
 
-        public AdminServicesController(IServiceRepository serviceRepo)
+        public AdminServicesController(IServiceRepository serviceRepo, IServiceBookingRepository bookingRepo)
         {
             _serviceRepo = serviceRepo;
+            _bookingRepo = bookingRepo;
         }
 
         public IActionResult Index()
@@ -23,8 +23,14 @@ namespace SachdevaCo.Controllers
             {
                 return Content("❌ You are not authorized to access this page.");
             }
-            var services = _serviceRepo.GetAllServices();
-            return View(services);
+
+            var vm = new ServiceDashboardViewModel
+            {
+                Services = _serviceRepo.GetAllServices(),
+                Bookings = _bookingRepo.GetAllBooking()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -41,6 +47,22 @@ namespace SachdevaCo.Controllers
         public IActionResult Delete(int id)
         {
             _serviceRepo.DeleteService(id);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult CreateBooking(ServiceBookingViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Index");
+
+            _bookingRepo.AddOrUpdateBooking(model);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBooking(int id)
+        {
+            _bookingRepo.DeleteBooking(id);
             return RedirectToAction("Index");
         }
     }

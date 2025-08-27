@@ -10,8 +10,11 @@ namespace SachdevaCo.Core.Models
     {
         public int Id { get; set; }
         public string? Title { get; set; }
-        public string? Category { get; set; }   
+        public string? Category { get; set; }
+        public string? Descriptions { get; set; }
         public string? FilePath { get; set; }
+        public string? ImageUrl { get; set; }
         public DateTime? CreatedDate { get; set; }
+
     }
 }

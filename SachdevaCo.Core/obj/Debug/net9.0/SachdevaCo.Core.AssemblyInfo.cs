@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SachdevaCo.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b55f78038fb9bfd9e0c5af3b5f32084443eed839")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36dccd8b26491937c3eede1b0ca51f429990adee")]
 [assembly: System.Reflection.AssemblyProductAttribute("SachdevaCo.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SachdevaCo.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

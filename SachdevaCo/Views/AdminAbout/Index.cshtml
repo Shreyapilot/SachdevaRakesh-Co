@@ -16,6 +16,10 @@
         <div class="card-body">
             <h5>@Model.About.Title</h5>
             <p>@Model.About.Description</p>
+            <p>@Model.About.FrontDescriptions</p>
+            <p>@Model.About.Mission</p>
+            <p>@Model.About.Value</p>
+            <p>@Model.About.Vision</p>
         </div>
     </div>
     <div class="card">
@@ -75,6 +79,22 @@
                     <div class="mb-3">
                         <label>Description</label>
                         <textarea name="Description" class="form-control">@Model.About.Description</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea name="FrontDescription" class="form-control">@Model.About.FrontDescriptions</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Mission</label>
+                        <input type="text" name="Mission" value="@Model.About.Mission" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Vision</label>
+                        <input type="text" name="Vision" value="@Model.About.Vision" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Value</label>
+                        <input type="text" name="Value" value="@Model.About.Value" class="form-control" />
                     </div>
                     <div class="mb-3">
                         <label>Upload Image (JPG, JPEG, PNG)</label>                      

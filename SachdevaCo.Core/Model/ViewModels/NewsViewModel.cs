@@ -13,8 +13,11 @@ namespace SachdevaCo.Core.Model.ViewModels
         public string? Title { get; set; }
         public string? Category { get; set; }
         public string? FilePath { get; set; }
+        public string? Descriptions { get; set; }
         public DateTime? CreatedDate { get; set; }
         public IFormFile? File { get; set; }
+        public string? ImageUrl { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
 
 

@@ -21,7 +21,10 @@ public class NewsRepository : INewsRepository
                 Id = a.Id,
                 Title = a.Title,
                 FilePath = a.FilePath,
-                Category = a.Category
+                Category = a.Category,
+                Descriptions = a.Descriptions,
+                CreatedDate = a.CreatedDate,
+                ImageUrl = a.ImageUrl,
             })
             .ToList();
     }
@@ -49,11 +52,32 @@ public class NewsRepository : INewsRepository
 
         model.FilePath = "/uploads/News/" + uniqueFileName;
 
+        if (model.ImageFile != null && model.ImageFile.Length > 0)
+        {
+            var uploadImageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/News");
+
+            if (!Directory.Exists(uploadImageFolder))
+                Directory.CreateDirectory(uploadImageFolder);
+
+            var uniqueImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+            var ImagefilePath = Path.Combine(uploadImageFolder, uniqueImageFileName);
+
+            using (var stream = new FileStream(ImagefilePath, FileMode.Create))
+            {
+                await model.ImageFile.CopyToAsync(stream);
+            }
+
+            model.ImageUrl = "/uploads/News/" + uniqueImageFileName;
+        }
+
         var news = new News
         {
             Title = model.Title,
             FilePath = model.FilePath,
             Category = model.Category,
+            Descriptions = model.Descriptions,
+            CreatedDate = model.CreatedDate,
+            ImageUrl = model.ImageUrl
         };
 
         _context.News.Add(news);

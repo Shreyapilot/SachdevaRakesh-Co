@@ -5,6 +5,7 @@ using SachdevaCo.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace SachdevaCo.Core.Model.Repository
 {
@@ -26,6 +27,10 @@ namespace SachdevaCo.Core.Model.Repository
                     Id = about.Id,
                     Title = about.Title,
                     Description = about.Description,
+                    FrontDescriptions = about.FrontDescriptions,
+                    Mission = about.Mission,
+                    Value = about.Value,
+                    Vision = about.Vision,
                     ImageUrl = about.ImageUrl,
                     CreatedAt = about.CreatedAt,
                     UpdatedAt = about.UpdatedAt
@@ -62,6 +67,10 @@ namespace SachdevaCo.Core.Model.Repository
                 {
                     Title = model.Title,
                     Description = model.Description,
+                    FrontDescriptions = model.FrontDescriptions,
+                    Vision = model.Vision,
+                    Mission = model.Mission,
+                    Value = model.Value,
                     ImageUrl = model.ImageUrl,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
@@ -73,6 +82,11 @@ namespace SachdevaCo.Core.Model.Repository
             {
                 about.Title = model.Title;
                 about.Description = model.Description;
+
+                about.FrontDescriptions = model.FrontDescriptions;
+                about.Vision = model.Vision;
+                about.Mission = model.Mission;
+                about.Value = model.Value;
 
                 if (!string.IsNullOrEmpty(model.ImageUrl))  
                     about.ImageUrl = model.ImageUrl;

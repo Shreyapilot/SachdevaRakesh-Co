@@ -4,8 +4,7 @@ using SachdevaCo.Core.Model.IRepository;
 using SachdevaCo.Core.Model.ViewModels;
 namespace SachdevaCo.Controllers
 {
-    //[Authorize(Roles = "Admin")]
-
+ 
     public class AdminNewsController : Controller
     {
         private readonly INewsRepository _newsRepo;

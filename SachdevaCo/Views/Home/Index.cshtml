@@ -3,9 +3,8 @@
     ViewBag.Title = "Home";
 }
 
-    <style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" >
-
+<style>
+    
         .chat-button {
             position: fixed;
             bottom: 20px;
@@ -99,31 +98,35 @@
     .hero-btn:hover {
         background-color: #c12772;
     }
+
+   
+    .btn-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <section class="bg-dark text-white d-flex align-items-center justify-content-center text-center "
          style="background: url('/images/backgroundimage.webp') center center / cover no-repeat; height:500px;">
     <div class="container py-5">
         <h1 class="display-4 fw-bold text-white">Inedge Consulting</h1>
         <p class="lead">The Experts In Finance</p>
-        @* <a href="#contact" class="btn text-white px-4 py-2 mt-3" style="background-color: #C63F60;">Get Started</a> *@
     </div>
 </section>
-<section>
-<div class="py-4" style="background: url('/images/section2image.avif') center center / cover no-repeat; height:max-content; display: flex; align-items: center; justify-content: center;">
-
-    <div class="container py-5" style="background-color: rgba(225, 231, 247, 0.4);">
-    <div class="row align-items-center">
+<section style="background-color: rgba(225, 231, 247, 0.4);">
+  <div class="container py-5">
+    <div class="row py-4 justify-content-between">
         <div class="col-md-6">
-            <div class="p-4 text-center">
-                <h1 class="fw-bold">Welcome to InEdge</h1>
+                <h2 style="font-family: 'Georgia', serif; font-size: 2.5rem;">Welcome to InEdge</h2>
                 <p class="lead">Connect smarter. Work faster. Grow further with InEdge.</p>
-                    <button class="btn text-white" style="background-color: #C63F60;">Get In Touch</button>
-
-            </div>
+                <button class="btn text-white align-content-center" style="background-color: #C63F60;">Get In Touch</button>
         </div>
-
-        <!-- Form -->
         <div class="col-md-6">
             <form method="post" action="/submit-form">
                 <div class="mb-3 row">
@@ -142,8 +145,8 @@
             </form>
         </div>
     </div>
-</div>
-</div>
+  </div>
+
 </section>
 <section class="services-section">
     <div class="container">
@@ -156,12 +159,8 @@
         </div>
     </div>
 </section>
-
-<!-- OUR TEAM Section -->
 <section class="our-team-section py-5" style="background-color: #0C1533; color: white;">
     <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-5">
-
-        <!-- Text Section -->
         <div class="team-text text-center text-lg-start">
             <h2 class="text-white mb-4" style="font-family: 'Georgia', serif; font-size: 2.5rem;">OUR TEAM</h2>
             <p class="fs-5 mb-4">
@@ -177,7 +176,6 @@
     </div>
 </section>
 <section class="contact-us-section py-5" style="background-color: #0C1533; color: white;">
-    <!-- Top Divider -->
     <div class="wave-divider-top">
         <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
             <path fill="#FFFFFF" d="M0,0 C300,100 1140,0 1440,100 L1440,0 L0,0 Z"></path>
@@ -216,31 +214,32 @@
 
 </section>
 
-<section style="background-color: #0C1533; color: white; min-height: 500px;" id="articles">
+<section style="background-color: #0C1533; color: white;" id="articles">
     <h2 class="text-white mb-5 text-center" style="font-family: 'Georgia', serif; font-size: 2.5rem;">
         Latest Articles
     </h2>
-    <div class="container py-5 px-5 rounded-2" style="background-color: ghostwhite;">
+    <div class="container py-5 px-5 rounded-2" 
+         style="background-color: ghostwhite; max-height: 500px; overflow-y: auto;">
         @if (Model != null && Model.Article.Any())
         {
-            <div class="row gap-4">
-                @foreach (var article in Model.Article)
-                {
-                    <div class="col-4 bg-white rounded-2 ">
-                        <div class="d-flex align-items-center gap-3 p-4 ">
-                           
+        <div class="row g-3">
+            @foreach (var article in Model.Article)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="bg-white rounded-2 h-100">
+                        <div class="d-flex align-items-center justify-content-between gap-2 p-2">
                             <h5 class="mb-0 fw-bold text-dark">@article.Title</h5>
-                            <a href="@article.FilePath" download class="btn btn-primary px-4 py-2 rounded-3 fw-semibold">
-                                Download
+                            <a href="@article.FilePath" download class="btn btn-primary btn-icon">
+                                <i class="fa-solid fa-download"></i>
                             </a>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
+        </div>
         }
         else
         {
-            <!-- Empty placeholder -->
             <div class="bg-white d-flex align-items-center justify-content-center rounded-4 shadow-sm" style="height: 300px;">
                 <div class="text-center">
                     <h5 class="text-black fw-bold">Check back soon</h5>
@@ -250,9 +249,6 @@
         }
     </div>
 </section>
-
-
-
 <section class="py-5" style=" background-color: #0C1533; color: white;" id="contact">
     <div class="container">
         <h2 class="text-white mb-5" style="font-family: 'Georgia', serif; font-size: 2.5rem;" >Contact Us Today</h2>
@@ -291,6 +287,7 @@
         </div>
     </div>
 </section>
+
 @section Scripts{
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

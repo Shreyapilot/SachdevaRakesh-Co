@@ -2,65 +2,130 @@
 @{
     ViewBag.Title = "News & Updates";
 }
+<style>
+    .hero {
+        background: linear-gradient(135deg, #0C1533, #4f46e5);
+        color: white;
+    }
 
-<div class="container py-5" >
+    .hero .btn-secondary {
+        background-color: #fff;
+        color: #0C1533;
+        font-weight: 600;
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="fw-bold text-dark">News & Updates</h1>
-        <p class="text-muted">Stay informed with the latest news across different categories.</p>
+    .hero .btn-secondary:hover {
+        background-color: #f1f1f1;
+        color: #0C1533;
+    }
+</style>
+
+
+<div class="container py-5">
+    <div class="text-center mb-2">
+        <h2 class="display-5 fw-bold mb-3">News & Updates</h2>
+        <p class="fs-5 text-muted mx-auto" style="max-width: 700px;">Stay informed with the latest news across different categories.</p>
+    </div>
+    <div class="d-flex justify-content-center mb-4">
+        <div class="input-group w-50">
+            <span class="input-group-text bg-white border-end-0">
+                <i class="fas fa-search text-muted"></i>
+            </span>
+            <input type="text" id="newsSearch" class="form-control border-start-0 shadow-md" placeholder="Search news and updates..." />
+        </div>
     </div>
 
-    <div class="d-flex justify-content-center mb-4 flex-wrap gap-2">
+    <div class="d-flex justify-content-center mb-5 flex-wrap gap-2">
         <a href="@Url.Action("Index", "News", new { category = "" })"
-           class="btn btn-sm @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "btn-primary" : "btn-outline-primary")">
-            <i class="fas fa-globe me-1"></i> All
+           class="btn btn-sm px-4 py-2 @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "btn-primary hero" : "btn-outline-primary")">
+            All
         </a>
         <a href="@Url.Action("Index", "News", new { category = "TAX" })"
-           class="btn btn-sm @(ViewBag.SelectedCategory == "TAX" ? "btn-primary" : "btn-outline-primary")">
-            <i class="fas fa-file-invoice-dollar me-1"></i> TAX
+           class="btn btn-sm px-4 py-2 @(ViewBag.SelectedCategory == "TAX" ? "btn-primary hero" : "btn-outline-primary")">
+            TAX
         </a>
         <a href="@Url.Action("Index", "News", new { category = "Company Law" })"
-           class="btn btn-sm @(ViewBag.SelectedCategory == "Company Law" ? "btn-primary" : "btn-outline-primary")">
-            <i class="fas fa-balance-scale me-1"></i> Company Law
+           class="btn btn-sm px-4 py-2 @(ViewBag.SelectedCategory == "Company Law" ? "btn-primary hero" : "btn-outline-primary")">
+            Company Law
         </a>
         <a href="@Url.Action("Index", "News", new { category = "GST" })"
-           class="btn btn-sm @(ViewBag.SelectedCategory == "GST" ? "btn-primary" : "btn-outline-primary")">
-            <i class="fas fa-receipt me-1"></i> GST
+           class="btn btn-sm px-4 py-2 @(ViewBag.SelectedCategory == "GST" ? "btn-primary hero" : "btn-outline-primary")">
+            GST
         </a>
     </div>
-
-    <!-- News Grid -->
     @if (Model != null && Model.Any())
     {
         <div class="row g-4">
             @foreach (var news in Model)
             {
-                <div class="col-md-4">
-                    <div class="card shadow-sm h-100 border-0 news-card">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="badge bg-light text-dark">@news.Category</span>
-                                <small class="text-muted">@news.CreatedDate?.ToString("dd MMM yyyy")</small>
-                            </div>
-                            <h5 class="card-title text-dark">@news.Title</h5>
-
-                            <div class="mt-auto pt-3">
-                                @if (!string.IsNullOrEmpty(news.FilePath))
-                                {
-                                    <a href="@Url.Content(news.FilePath)" target="_blank" class="btn btn-sm btn-success">
-                                        📂 View File
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted small">No file attached</span>
-                                }
-                            </div>
+                <div class="col-md-6 news-item" data-title="@news.Title @news.Descriptions">
+                    <div class="card border-0 shadow-sm h-100 rounded-3 overflow-hidden news-card">
+                    
+                    @if (!string.IsNullOrEmpty(news.ImageUrl))
+                    {
+                        <div class="bg-light" style="height:200px;">
+                            <img src="@news.ImageUrl" alt="News Image" class="img-fluid w-100 h-100" style="object-fit:cover;" />
                         </div>
+                    }
+                    else
+                    {
+                         <div class="bg-light" style="height:200px; background-image:url('/images/news-placeholder.jpg'); background-position:center; background-size:cover; background-repeat:no-repeat;">
+
+                         </div>
+                    }
+
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-light text-dark">@news.Category</span>
+                            <small class="text-muted">
+                            @{
+                                if (news.CreatedDate.HasValue)
+                                {
+                                    var now = DateTime.Now;
+                                    var diff = now - news.CreatedDate.Value;
+
+                                    string timeAgo;
+                                    if (diff.TotalMinutes < 60)
+                                    {
+                                        timeAgo = $"{(int)diff.TotalMinutes} min ago";
+                                    }
+                                    else if (diff.TotalHours < 24)
+                                    {
+                                        timeAgo = $"{(int)diff.TotalHours} hour ago";
+                                    }
+                                    else
+                                    {
+                                        timeAgo = $"{(int)diff.TotalDays} day ago";
+                                    }
+
+                                    @timeAgo
+                                }
+                            }
+                        </small>
+
+                        </div>
+                        <h5 class="fw-bold text-dark">@news.Title</h5>
+                        <p class=" mb-3">@news.Descriptions</p>
+
+                        <div class="mt-auto pt-2">
+                            @if (!string.IsNullOrEmpty(news.FilePath))
+                            {
+                                <a href="@Url.Content(news.FilePath)" target="_blank" class="btn btn-outline-primary hero btn-sm">
+                                    <i class="fas fa-file-pdf me-1"></i> PDF
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">No file attached</span>
+                            }
+                        </div>
+                    </div>
+                   
                     </div>
                 </div>
             }
         </div>
+
     }
     else
     {
@@ -71,14 +136,31 @@
     }
 </div>
 
-<!-- Extra CSS for hover effect -->
 <style>
     .news-card {
         transition: all 0.3s ease;
+        border-radius: 1rem !important;
     }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .input-group input {
+        border-radius: 0 25px 25px 0 !important;
+    }
+    .input-group-text {
+        border-radius: 25px 0 0 25px !important;
+    }
 </style>
+<script>
+    $(document).ready(function () {
+        $("#newsSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+
+            $(".news-item").filter(function () {
+                $(this).toggle($(this).data("title").toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+

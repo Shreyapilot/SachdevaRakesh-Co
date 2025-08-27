@@ -27,6 +27,8 @@ public partial class SachdevaCoDbContext : DbContext
     public virtual DbSet<TeamMember> TeamMembers { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<ServiceBookings> ServiceBookings { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=DefaultConnection");
@@ -99,6 +101,8 @@ public partial class SachdevaCoDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
         });
+        modelBuilder.Entity<ServiceBookings>()
+       .HasKey(b => b.BookingID);
 
         modelBuilder.Entity<TeamMember>(entity =>
         {

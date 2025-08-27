@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SachdevaCo.Core.Model.ViewModels.ServiceViewModel>
+﻿@model SachdevaCo.Core.Model.ViewModels.ServiceDashboardViewModel
 
 @{
     ViewBag.Title = "Manage Services";
@@ -12,7 +12,7 @@
     <button class="btn btn-primary mb-3" onclick="openServiceModal()">Add Service</button>
 
     <div class="row">
-        @foreach (var service in Model)
+        @foreach (var service in Model.Services)
         {
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100 shadow-sm">
@@ -42,6 +42,50 @@
         }
     </div>
 </div>
+ <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Company</th>
+            <th>Service Date</th>
+            <th>Service Time</th>
+            <th>Service ID</th>
+            <th>Message</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model.Bookings)
+        {
+            <tr>
+                <td>@booking.Name</td>
+                <td>@booking.Email</td>
+                <td>@booking.Phone</td>
+                <td>@booking.CompanyName</td>
+                <td>@booking.PreferredDate.ToShortDateString()</td>
+                <td>@DateTime.Today.Add(booking.PreferredTime).ToString("hh:mm tt")</td>
+                <td>@booking.ServiceID</td>
+                <td>
+                    @(booking.Message ?? "N/A")
+                </td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-2"
+                            onclick='openBookingModal(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(booking)))'>
+                        Edit
+                    </button>
+
+                    <form method="post" asp-action="DeleteBooking" style="display:inline;"
+                          onsubmit="return confirm('Delete this booking?');">
+                        <input type="hidden" name="id" value="@booking.BookingID" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 
 
 <!-- Service Modal -->
 <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">

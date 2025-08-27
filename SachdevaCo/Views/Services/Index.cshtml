@@ -1,93 +1,189 @@
-﻿@model IEnumerable<SachdevaCo.Core.Model.ViewModels.ServiceViewModel>  
+﻿@model SachdevaCo.Core.Model.ViewModels.ServiceDashboardViewModel  
 
 @{
     ViewBag.Title = "Our Services";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
-    .service-card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        overflow: hidden;
-        transition: transform 0.2s ease-in-out;
+    .hero {
+        background: linear-gradient(135deg, #0C1533, #4f46e5);
+        color: white;
     }
-    .service-card:hover {
-        transform: translateY(-5px);
+
+    .hero .btn-secondary {
+        background-color: #fff;
+        color: #0C1533;
+        font-weight: 600;
     }
-    .service-card img {
-        height: 200px;
-        object-fit: cover;
-    }
-    .service-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-    .service-duration {
-        color: gray;
-        font-size: 0.9rem;
-    }
-    .service-price {
-        font-size: 1.1rem;
-        color: #28a745;
-        font-weight: 500;
-    }
-    .btn-book {
-        background-color: #007bff;
-        border: none;
-        border-radius: 25px;
-        padding: 8px 20px;
-        font-size: 0.95rem;
-    }
-    .btn-book:hover {
-        background-color: #0056b3;
+
+    .hero .btn-secondary:hover {
+        background-color: #f1f1f1;
+        color: #0C1533;
     }
 </style>
 
- 
-<div class="bg-dark text-white d-flex align-items-lg-start justify-content-center text-center pb-3 "
-            style="background: url('/images/backgroundimage.webp') center center / cover no-repeat; height:200px;">
-    <div class="container py-5">
-        <h1 class="display-4 fw-bold text-white">Our Service</h1>
-    </div>
-</div>
-<div class="container my-4">
-    <div class="row g-4">
-        @foreach (var service in Model)
+<section class="py-5 px-3 bg-light">
+    <div class="container">
+        @if (TempData["Success"] != null)
         {
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card service-card h-100">
-                    @* <img src="@service.ImageUrl" class="card-img-top" alt="@service.Title"> *@
-                    <div class="card-body text-center">
-                        <div class="service-title">@service.Title</div>
-                        <div class="service-duration">@service.Duration</div>
-                        <div class="service-price">₹@service.Price</div>
-                        <div class="service-description">@service.Description</div>
-                    </div>
-                    <div class="card-footer bg-white text-center">
-                        <a href="/" class="btn btn-book text-white">Book Now</a>
-                    </div>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Booking Confirmed!</strong> We'll contact you within 24 hours to confirm your consultation.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
-    </div>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Our Expert Services</h2>
+            <p class="fs-5 text-muted mx-auto" style="max-width: 700px;">
+                Discover our comprehensive range of professional services designed to drive your business forward and deliver exceptional results.
+            </p>
+        </div>
 
-    <div class="container my-5">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center ">
-            <div>
-                <h2 class="fw-bold mb-3">Need more details? Contact us</h2>
-                <p class="mb-4 mb-md-0 text-muted">
-                    We are here to assist. Contact us by phone, email or via our social media channels.
-                </p>
+        <div class="row g-4">
+            @foreach (var service in Model.Services)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-0 shadow h-100 text-center" style="cursor:pointer;">
+
+                        <div class="card-header bg-white border-0 pb-0">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                 style="width:64px; height:64px; background:rgba(13,110,253,0.1);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="hero" class="bi bi-star" viewBox="0 0 16 16">
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.39 2.256c.386.198.824-.149.746-.592l-.83-4.73
+                               3.523-3.356c.33-.315.158-.888-.283-.95l-4.898-.696L8.465.792c-.197-.39-.73-.39-.927
+                               0l-2.19 4.396-4.898.696c-.441.062-.613.635-.283.95l3.523 3.356-.83 4.73z" />
+                                </svg>
+                            </div>
+
+                            <h5 class="fw-semibold mb-2">@service.Title</h5>
+                            <p class="text-muted small mb-2">@service.Duration</p>
+                            <h4 class="fw-bold mb-3" style="color:#0C1533;">₹@service.Price</h4>
+                            <p class="card-text text-muted mb-3">@service.Description</p>
+                        </div>
+
+                        <div class="card-body pt-0">
+                            <button class="btn btn-primary hero w-100 fw-semibold py-3 fs-5"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#bookingModal"
+                                    data-serviceid="@service.Id"
+                                    onclick="selectService('@service.Title')">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Book Your Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <a href="/Contact/index" class="btn btn-warning btn-lg">
-                Contact Us
-            </a>
+            <div class="modal-body">
+                <form method="post" asp-action="CreateBooking" asp-controller="Services"  class="p-4 border rounded-3 shadow-lg bg-white">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold text-primary">
+                            <i class="bi bi-calendar-check me-2"></i> Book Your Service
+                        </h3>
+                        <p class="text-muted small">Fill in the details below and we’ll get back to you shortly.</p>
+                    </div>
+                     <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <label for="name" class="form-label fw-semibold">
+                                <i class="bi bi-person-circle me-1"></i> Full Name
+                            </label>
+                            <input type="text" name="Name" id="name" class="form-control form-control-lg" placeholder="John Doe" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="email" class="form-label fw-semibold">
+                                <i class="bi bi-envelope-at me-1"></i> Email
+                            </label>
+                            <input type="email" name="Email" id="email" class="form-control form-control-lg" placeholder="you@example.com" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="phone" class="form-label fw-semibold">
+                                <i class="bi bi-telephone me-1"></i> Phone
+                            </label>
+                            <input type="text" name="Phone" id="phone" class="form-control form-control-lg" placeholder="+91-9876543210" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="companyName" class="form-label fw-semibold">
+                            <i class="bi bi-building me-1"></i> Company Name
+                        </label>
+                        <input type="text" name="CompanyName" id="companyName" class="form-control form-control-lg" placeholder="Your Company" />
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="date" class="form-label fw-semibold">
+                                <i class="bi bi-calendar-event me-1"></i> Preferred Date
+                            </label>
+                            <input type="date" name="PreferredDate" id="date" class="form-control form-control-lg" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="time" class="form-label fw-semibold">
+                                <i class="bi bi-clock me-1"></i> Preferred Time
+                            </label>
+                            <input type="time" name="PreferredTime" id="time" class="form-control form-control-lg" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="serviceId" class="form-label fw-semibold">
+                            <i class="bi bi-list-check me-1"></i> Select Service
+                        </label>
+                        <select name="ServiceID" id="serviceId" class="form-select form-select-lg" required>
+                            <option value="">-- Select a Service --</option>
+                            @foreach (var s in Model.Services)
+                            {
+                                <option value="@s.Id">@s.Title (@s.Duration)</option>
+                            }
+                        </select>
+
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-semibold">
+                            <i class="bi bi-chat-text me-1"></i> Additional Message
+                        </label>
+                        <textarea name="Message" id="message" class="form-control form-control-lg" rows="3" placeholder="Any specific requests?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-100 shadow-sm">
+                        <i class="bi bi-send-check me-2"></i> Submit Booking
+                    </button>
+                </form>
+
+
+            </div>
         </div>
     </div>
 </div>
+<section class="hero text-center py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-3">Ready to Work Together?</h2>
+        <p class="lead mb-4">Let's discuss how our team can help bring your vision to life.</p>
+        <a href="/Contact/index" class="btn btn-secondary btn-lg text-black">Get In Touch</a>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var bookingModal = document.getElementById('bookingModal');
+        bookingModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var serviceId = button.getAttribute('data-serviceid');
+            var dropdown = bookingModal.querySelector('#serviceId');
+
+            if (serviceId) {
+                dropdown.value = serviceId; 
+            }
+        });
+    </script>
+}
 
 
